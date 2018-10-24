@@ -21,9 +21,9 @@ STARA_CPU=8
 # Note each STAR job = ~30GB of RAM
 GNUP_THREAD_STAR=2
 
-# CPU threads for GNU Parralle concurrent SAMtools jobs. Default here 
-# = 8x 2-thread SAMtools jobs = 16 threds in total                                 
-# Note each SAMtools job = ~8GB of RAM                                      
+# CPU threads for GNU Parralle concurrent SAMtools jobs. Default here
+# = 8x 2-thread SAMtools jobs = 16 threds in total
+# Note each SAMtools job = ~8GB of RAM
 GNUP_THREAD_SAMTOOLS=2
 
 # Arriba release
