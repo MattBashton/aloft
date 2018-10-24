@@ -14,7 +14,7 @@ This script was inspired by the [demo script](https://arriba.readthedocs.io/en/v
 
 ### Requirements ###
 
-* Linux or *nix like OS, with working make, [Wget](https://www.gnu.org/software/wget/), [Bash](https://www.gnu.org/software/bash/), [GNU sed](https://www.gnu.org/software/sed/), [GNU gawk](https://www.gnu.org/software/gawk/), [GNU grep](https://www.gnu.org/software/grep/), [gzip](https://www.gnu.org/software/gzip/) and [Perl](https://www.perl.org/). - Tested on [Ubuntu](https://www.ubuntu.com/) 18.04 LTS
+* Linux or *nix like OS, with working make, [Wget](https://www.gnu.org/software/wget/), [Bash](https://www.gnu.org/software/bash/), [GNU sed](https://www.gnu.org/software/sed/), [GNU gawk](https://www.gnu.org/software/gawk/), [GNU grep](https://www.gnu.org/software/grep/), [gzip](https://www.gnu.org/software/gzip/) and [Perl](https://www.perl.org/). - Tested on [Ubuntu](https://www.ubuntu.com/) 18.04 LTS
 * [STAR aligner](https://github.com/alexdobin/STAR)
 * [SAMtools](http://www.htslib.org/)
 * [GNU Parallel](https://www.gnu.org/software/parallel/)
