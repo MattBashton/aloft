@@ -10,7 +10,7 @@ Aloft is a [Bash](https://www.gnu.org/software/bash/) script script for running 
 7. Running [SAMtools](http://www.htslib.org/) in parallel - enables viewing of STAR derived BAM with IGV.
 8. Running Arriba's outstanding plotting script [`draw_fusions.R`](https://github.com/suhrig/arriba/blob/master/draw_fusions.R) in parallel over all samples as with previous stages.
 
-This script was inspired by the [demo script](https://arriba.readthedocs.io/en/v1.0.1/workflow/#demo-script) `run_arriba.sh` supplied with Arriba. Aloft implements the recommended [Arriba workflow](https://arriba.readthedocs.io/en/v1.0.1/workflow/). The only difference being STAR alignment is output to disk rather than piped into Arriba, so that it can be subsequently sorted indexed and saved for manual inspection of fusions in say [IGV](http://software.broadinstitute.org/software/igv/).
+This script was inspired by the [demo script](https://arriba.readthedocs.io/en/v1.0.1/workflow/#demo-script) `run_arriba.sh` supplied with Arriba. Aloft implements the recommended [Arriba workflow](https://arriba.readthedocs.io/en/v1.0.1/workflow/). The only difference being STAR alignment is output to disk rather than piped into Arriba, so that it can be subsequently sorted indexed and saved for manual inspection of fusions in say [IGV](http://software.broadinstitute.org/software/igv/).
 
 ### Requirements ###
 
