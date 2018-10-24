@@ -16,10 +16,15 @@ GNUP_THREAD=8
 STARI_CPU=8
 # CPU thread for STAR alignment
 STARA_CPU=8
-# CPU thread for GNU Parralle concurrent STAR alignments, note above setting!
-# Default here = 2 x 8 thread STAR alignment jobs = 16 threds in total
-# Note each STAR job = ~ 30GB of RAM
+# CPU threads for GNU Parralle concurrent STAR alignments, note above setting!
+# Default here = 2x 8-thread STAR alignment jobs = 16 threds in total
+# Note each STAR job = ~30GB of RAM
 GNUP_THREAD_STAR=2
+
+# CPU threads for GNU Parralle concurrent SAMtools jobs. Default here 
+# = 8x 2-thread SAMtools jobs = 16 threds in total                                 
+# Note each SAMtools job = ~8GB of RAM                                      
+GNUP_THREAD_SAMTOOLS=2
 
 # Arriba release
 ARRIBA_VER="v1.0.1"
