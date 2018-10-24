@@ -41,4 +41,4 @@ Having made such a file you, and reviewed the settings in `aloftConfig.sh` you c
 aloft.sh <tab delimited sample sheet> <input FASTQ path> <output dir for run> 
 ```
 
-Out of the box aloft is configured to use 16 cores and will consume about 64GB of RAM during execution, the core count of various stages and number of concurrent jobs RAM allocated etc can be adjusted in `aloftConfig.sh`
+Out of the box aloft is configured to use 16 cores and will consume about 64GB of RAM during execution, the core count of various stages and number of concurrent jobs RAM allocated etc can be adjusted in `aloftConfig.sh`.
