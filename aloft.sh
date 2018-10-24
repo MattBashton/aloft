@@ -44,11 +44,14 @@ echo " * Optional Arriba arguments: ${ARRIBA_ARG}"
 echo " * STAR index dir: ${STAR_INDEX_DIR}"
 echo " * STAR ungzip command: ${UNGZIP}"
 echo " * STAR BAM output (temp) compression level: ${STAR_BAM_CMPLVL}"
+echo " * Concurrent STAR jobs: ${GNUP_THREAD_STAR}"
+echo " * STAR alignment threads ${STARA_CPU}"
 echo " * Blacklist ot use: ${BLACKLIST}"
 echo " * Cytobands to use for plots: ${CYTOBANDS}"
 echo " * Pfam domains to use for plots: ${DOMAINS}"
 echo " * COMSIC Complete fusion report file: ${COSMIC}"
 echo " * Final output dir set to: ${OUTPUT_DIR}"
+echo " * Concurrent SAMtools jobs: ${GNUP_THREAD_SAMTOOLS}"
 echo " * RAM allocated for SAMtools sort: ${SAMTOOLS_RAM}"
 echo " * CPU threads for SAMTtools sort: ${SAMTOOLS_CPU}"
 echo " * SAMtools compression level for BAM: ${SAMTOOLS_CMPLVL}"
@@ -264,7 +267,7 @@ parallel --progress --jobs ${GNUP_THREAD} --joblog Arriba_joblog.txt < Arriba_jo
 tput bold
 echo -ne "\nRunning SAMtools jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt
+parallel --progress --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt
 
 # Run Plotting jobs
 tput bold
