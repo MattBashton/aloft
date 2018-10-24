@@ -1,5 +1,5 @@
 ## Aloft ##
-Aloft is a [Bash](https://www.gnu.org/software/bash/) script script for running the excellent [Arriba](https://github.com/suhrig/arriba) RNA-Seq fusion detector, it takes charge of:
+Aloft is a [Bash](https://www.gnu.org/software/bash/) script script for running the excellent [Arriba](https://github.com/suhrig/arriba) RNA-Seq fusion detector in parallel, it takes charge of:
 
 1. Downloading and compiling an [Arriba release](https://github.com/suhrig/arriba/releases) (if required).
 2. Downloading references and annotation (via Arriba's [`download_references.sh`](https://github.com/suhrig/arriba/blob/master/download_references.sh))
