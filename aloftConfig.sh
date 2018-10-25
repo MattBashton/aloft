@@ -19,13 +19,13 @@ READL=201
 # This value controls the number of concurrent jobs.
 GNUP_THREAD=8
 
-# CPU threads for GNU paralle concurrent STAR alignments, 
+# CPU threads for GNU parallel concurrent STAR alignments,
 # Default here = 2x 8-thread STAR alignment jobs = 16 threds in total
 # Note each STAR job = ~30GB of RAM so total ~60GB
 GNUP_THREAD_STAR=2
 
-# CPU threads for GNU Parralle concurrent SAMtools jobs. Default here
-# = 4x 2-thread SAMtools jobs = 8 threds in total
+# CPU threads for GNU Parallel concurrent SAMtools jobs. Default here
+# = 4x 2-thread SAMtools jobs = 8 threads in total
 # Note each SAMtools sort worker thread = ~8GB of RAM so this would use 64GB of RAM
 GNUP_THREAD_SAMTOOLS=4
 
@@ -42,7 +42,7 @@ ARRIBA_REL="https://github.com/suhrig/arriba/releases/download/${ARRIBA_VER}/arr
 
 # Max reads for Arriba to use, it will downsample above this count
 MAX_READS="300"
-# Other extra Arrib arguments, place these into this string,
+# Other extra Arriba arguments, place these into this string,
 # left empty by default
 ARRIBA_ARG=""
 # Datasets form Arriba database dir, these need to match STAR assembly below
@@ -53,7 +53,7 @@ DOMAINS="${ARRIBA_DIR}/database/protein_domains_hg38_GRCh38_2018-03-06.gff3"
 
 # STAR settings
 # -------------
-# Referance and annotaion to use for STAR index
+# Reference and annotation to use for STAR index
 REF="GRCh38"
 ANNO="ENSEMBL93"
 REF_ANNO="${REF}+${ANNO}"
@@ -85,6 +85,6 @@ COSMIC="CosmicFusionExport.tsv.gz"
 # possible RAM usage current set-up will use 4x jobs 2x threads x 8192MB per thread = 64GB
 # Note actual usage will be smaller if input file is less than 8GB
 SAMTOOLS_RAM="8192M"
-# Number of threads for samtools sort, note number of samtools jobs defaults to 4
+# Number of threads for SAMtools sort, note number of SAMtools jobs defaults to 4
 SAMTOOLS_CPU=2
 SAMTOOLS_CMPLVL=6

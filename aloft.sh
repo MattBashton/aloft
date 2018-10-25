@@ -31,7 +31,7 @@ SAMPLES=$(wc -l ${SAMPLE_SHEET} | awk '{print $1}')
 echo -ne "Config\n"
 echo " * Working dir: ${BASE_DIR}"
 echo " * Input FASTQ dir: ${INPUT_DIR}"
-echo " * Read Lenght: ${READL}bp (please ignore this - for testing only)"
+echo " * Read length: ${READL}bp (please ignore this - for testing only)"
 echo " * Sample count: $SAMPLES"
 echo " * Arriba version: ${ARRIBA_VER}"
 echo " * Arriba release: ${ARRIBA_REL}"
@@ -74,7 +74,7 @@ else
     cd $BASE_DIR
 fi
 
-# Detect if STAR index + referance and annotation is present
+# Detect if STAR index + reference and annotation is present
 echo -ne "\nDetecting if STAR index is present\n"
 if [[ -d ${STAR_INDEX_DIR} ]]
 then
@@ -82,7 +82,7 @@ then
 else
     echo -en " * STAR index not found, downloading and building on $STARI_CPU cpu core(s)... (this may take some time)\n"
     echo -en " * Adjusting build script for a read length of ${READL}bp\n"
-    
+
     # Edit download script with sed
     LENGTH=$(($READL-1))
     sed "s/sjdbOverhang 200/sjdbOverhang ${LENGTH}/" ${ARRIBA_DIR}/download_references.sh > ${ARRIBA_DIR}/dl_ref.sh
@@ -97,7 +97,7 @@ then
     rm -rf ${OUTPUT_DIR}
 fi
 
-# Make output dir 
+# Make output dir
 mkdir ${OUTPUT_DIR}
 
 # Remove Logs dir if file exists
@@ -123,7 +123,7 @@ fi
 
 # Loop over samples create STAR jobs
 while [[ $COUNTER -le $SAMPLES ]];
-do    
+do
     echo -ne "  - Working on sample $COUNTER of $SAMPLES, ID: "
     # Get input files for this run
     R1=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R1 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
@@ -157,7 +157,7 @@ else
     rm TempCosmicFusionsList.tsv
     # String for sed
     # format s/OLD/NEW/g;
-    # Make array 
+    # Make array
     declare -A SED_ARRAY
     # Populate key value pairs
     SED_ARRAY[C15orf55]=NUTM1
@@ -182,7 +182,7 @@ else
 	STRING_TO_ADD="s/${OLD}/${SED_ARRAY[${OLD}]}/g; "
        	SED_STRING=${SED_STRING}${STRING_TO_ADD}
     done
-    # Remove final two charaters
+    # Remove final two characters
     SED_STRING=${SED_STRING:0:-2}
     # Add closing single quote
     #SED_STRING="${SED_STRING}'"
@@ -212,7 +212,7 @@ do
 done
 
 # Generate SAMtools jobs and remove unsorted BAM
-# We need to sort and index our BAM so we can view alignments in samtools
+# We need to sort and index our BAM so we can view alignments in SAMtools
 
 # Remove existing jobs file if exists
 if [[ -e SAMtools_jobs.txt ]]
