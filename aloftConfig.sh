@@ -20,13 +20,14 @@ READL=201
 GNUP_THREAD=8
 
 # CPU threads for GNU parallel concurrent STAR alignments,
-# Default here = 2x 8-thread STAR alignment jobs = 16 threds in total
-# Note each STAR job = ~30GB of RAM so total ~60GB
+# Default here = 2x 8-thread STAR alignment jobs = 16 threads in total
+# Note each STAR job = ~30GB of RAM so total ~60GB.
 GNUP_THREAD_STAR=2
 
 # CPU threads for GNU Parallel concurrent SAMtools jobs. Default here
 # = 4x 2-thread SAMtools jobs = 8 threads in total
-# Note each SAMtools sort worker thread = ~8GB of RAM so this would use 64GB of RAM
+# Note each SAMtools sort worker thread = ~8GB of RAM so this would use 64GB of
+# RAM.
 GNUP_THREAD_SAMTOOLS=4
 
 
@@ -62,7 +63,8 @@ STAR_INDEX_DIR="STAR_index_${REF}_${ANNO}"
 # Set to zero to speed up performance
 STAR_BAM_CMPLVL=0
 # STAR alignment options
-# Cribbed from Arrib 1.0.1 workflow: https://arriba.readthedocs.io/en/v1.0.1/workflow/
+# Cribbed from Arrib 1.0.1 workflow:
+# https://arriba.readthedocs.io/en/v1.0.1/workflow/
 STAR_ARG="--genomeLoad NoSharedMemory --outStd BAM_Unsorted --outSAMtype BAM Unsorted --outSAMunmapped Within --outBAMcompression ${STAR_BAM_CMPLVL} --outFilterMultimapNmax 1 --outFilterMismatchNmax 3 --chimSegmentMin 10 --chimOutType WithinBAM SoftClip --chimJunctionOverhangMin 10 --chimScoreMin 1 --chimScoreDropMax 30 --chimScoreJunctionNonGTAG 0 --chimScoreSeparation 1 --alignSJstitchMismatchNmax 5 -1 5 5 --chimSegmentReadGapMax 3"
 # Ungzip command for fastq.gz files for reading FASTQ into STAR
 # Use pigz here if you have it otherwise use zcat
@@ -82,8 +84,9 @@ COSMIC="CosmicFusionExport.tsv.gz"
 #------------------
 # SAMtools RAM usage
 # Note that GNUP_THREAD will be used so x this by that value to work out max
-# possible RAM usage current set-up will use 4x jobs 2x threads x 8192MB per thread = 64GB
-# Note actual usage will be smaller if input file is less than 8GB
+# possible RAM usage current set-up will use 4x jobs 2x threads x 8192MB per
+# thread = 64GB Note actual usage will be smaller if input file is less than
+# 8GB.
 SAMTOOLS_RAM="8192M"
 # Number of threads for SAMtools sort, note number of SAMtools jobs defaults to 4
 SAMTOOLS_CPU=2
