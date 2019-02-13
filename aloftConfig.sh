@@ -54,6 +54,8 @@ DOMAINS="${ARRIBA_DIR}/database/protein_domains_hg38_GRCh38_2018-03-06.gff3"
 
 # STAR settings
 # -------------
+# STAR CPU threads for index generation
+STARI_CPU=8
 # STAR CPU threads for alignment
 STARA_CPU=8
 # Reference and annotation to use for STAR index
