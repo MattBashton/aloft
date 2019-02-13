@@ -85,9 +85,9 @@ COSMIC="CosmicFusionExport.tsv.gz"
 # SAMtools settings
 #------------------
 # SAMtools RAM usage
-# Note that GNUP_THREAD will be used so x this by that value to work out max
-# possible RAM usage current set-up will use 4x jobs 2x threads x 8192MB per
-# thread = 64GB Note actual usage will be smaller if input file is less than
+# Note that GNUP_THREAD_SAMTOOLS will be used so x this by that value to work
+# out max possible RAM usage current set-up will use 4x jobs 2x threads x 8192MB
+# per thread = 64GB Note actual usage will be smaller if input file is less than
 # 8GB.
 SAMTOOLS_RAM="8192M"
 # Number of threads for SAMtools sort, note number of SAMtools jobs defaults to 4
