@@ -255,25 +255,25 @@ done
 tput bold
 echo -ne "\nRunning STAR jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD_STAR} --joblog STAR_joblog.txt < STAR_jobs.txt
+parallel --progress --jobs ${GNUP_THREAD_STAR} --joblog STAR_joblog.txt < STAR_jobs.txt >  STAR_stdout.txt
 
 # Run Arriba jobs
 tput bold
 echo -ne "\nRunning Arriba jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD} --joblog Arriba_joblog.txt < Arriba_jobs.txt
+parallel --progress --jobs ${GNUP_THREAD} --joblog Arriba_joblog.txt < Arriba_jobs.txt >  Arriba_stdout.txt
 
 # Run SAMtools jobs
 tput bold
 echo -ne "\nRunning SAMtools jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt
+parallel --progress --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt >  SAMtools_stdout.txt
 
 # Run Plotting jobs
 tput bold
 echo -ne "\nRunning Plotting jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD} --joblog Plotting_joblog.txt < Plotting_jobs.txt
+parallel --progress --jobs ${GNUP_THREAD} --joblog Plotting_joblog.txt < Plotting_jobs.txt >  Plotting_stdout.txt
 
 tput bold
 echo -ne "\n\nDone!\n\n"
