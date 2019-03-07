@@ -100,16 +100,6 @@ fi
 # Make output dir
 mkdir ${OUTPUT_DIR}
 
-# Remove Logs dir if file exists
-# STAR Logs will be placed here
-if [[ -d logs ]]
-then
-    rm -rf logs
-fi
-
-# Make Logs dir
-mkdir logs
-
 # Now Generate STAR alignment jobs
 echo -ne "\nGenerating STAR alignment jobs...\n"
 echo -ne " * Threads to use for STAR alignment: $STARA_CPU\n"
@@ -207,7 +197,7 @@ do
     SAMPLE_ID=$(awk "NR==${COUNTER}" ${SAMPLE_SHEET} | cut -f 1)
     echo -ne "${SAMPLE_ID}"
     echo -ne "\n"
-    echo "${ARRIBA} ${ARRIBA_ARG} -U ${MAX_READS} -x ${OUTPUT_DIR}/${SAMPLE_ID}.bam -o ${OUTPUT_DIR}/${SAMPLE_ID}_fusions.tsv -O ${OUTPUT_DIR}/${SAMPLE_ID}_fusions.discarded.tsv -a ${REF}.fa -g ${ANNO}.gtf -k CosmicFusionsList.tsv -b ${BLACKLIST} -T -T -P -P" >> Arriba_jobs.txt
+    echo "${ARRIBA} ${ARRIBA_ARG} -U ${MAX_READS} -x ${OUTPUT_DIR}/${SAMPLE_ID}.bam -o ${OUTPUT_DIR}/${SAMPLE_ID}_fusions.tsv -O ${OUTPUT_DIR}/${SAMPLE_ID}_fusions.discarded.tsv -a ${REF}.fa -g ${ANNO}.gtf -k CosmicFusionsList.tsv -b ${BLACKLIST} -T -P 2>&1 | tee ${OUTPUT_DIR}/${SAMPLE_ID}_Arriba_out.txt" >> Arriba_jobs.txt
     ((COUNTER++))
 done
 
@@ -246,7 +236,7 @@ do
     echo -ne "  - Working on sample $COUNTER of $SAMPLES, ID: "
     SAMPLE_ID=$(awk "NR==${COUNTER}" ${SAMPLE_SHEET} | cut -f 1)
     echo -ne "${SAMPLE_ID}, plots will be written to ${OUTPUT_DIR}/${SAMPLE_ID}.pdf\n"
-    echo "${ARRIBA_DIR}/draw_fusions.R --fusions=${OUTPUT_DIR}/${SAMPLE_ID}_fusions.tsv --alignments=${OUTPUT_DIR}/${SAMPLE_ID}_sorted.bam --output=${OUTPUT_DIR}/${SAMPLE_ID}.pdf --annotation=${ANNO}.gtf --cytobands=${CYTOBANDS} --proteinDomains=${DOMAINS}" >> Plotting_jobs.txt
+    echo "${ARRIBA_DIR}/draw_fusions.R --fusions=${OUTPUT_DIR}/${SAMPLE_ID}_fusions.tsv --alignments=${OUTPUT_DIR}/${SAMPLE_ID}_sorted.bam --output=${OUTPUT_DIR}/${SAMPLE_ID}.pdf --annotation=${ANNO}.gtf --cytobands=${CYTOBANDS} --proteinDomains=${DOMAINS} 2>&1 | tee ${OUTPUT_DIR}/${SAMPLE_ID}_Plotting_out.txt" >> Plotting_jobs.txt
     ((COUNTER++))
 done
 
@@ -255,25 +245,25 @@ done
 tput bold
 echo -ne "\nRunning STAR jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD_STAR} --joblog STAR_joblog.txt < STAR_jobs.txt >  STAR_stdout.txt
+parallel --bar --jobs ${GNUP_THREAD_STAR} --joblog STAR_joblog.txt < STAR_jobs.txt
 
 # Run Arriba jobs
 tput bold
 echo -ne "\nRunning Arriba jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD} --joblog Arriba_joblog.txt < Arriba_jobs.txt >  Arriba_stdout.txt
+parallel --bar --jobs ${GNUP_THREAD} --joblog Arriba_joblog.txt < Arriba_jobs.txt
 
 # Run SAMtools jobs
 tput bold
 echo -ne "\nRunning SAMtools jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt >  SAMtools_stdout.txt
+parallel --bar --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt 
 
 # Run Plotting jobs
 tput bold
 echo -ne "\nRunning Plotting jobs...\n"
 tput sgr0
-parallel --progress --jobs ${GNUP_THREAD} --joblog Plotting_joblog.txt < Plotting_jobs.txt >  Plotting_stdout.txt
+parallel --bar --jobs ${GNUP_THREAD} --joblog Plotting_joblog.txt < Plotting_jobs.txt 
 
 tput bold
 echo -ne "\n\nDone!\n\n"
