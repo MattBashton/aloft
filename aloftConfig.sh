@@ -2,7 +2,7 @@
 ############################
 # Setting for aloft script #
 ############################
-# Matt Bashton 2018
+# Matt Bashton 2018-2019
 
 # Read length
 #------------
@@ -34,7 +34,7 @@ GNUP_THREAD_SAMTOOLS=4
 # Arriba settings
 #----------------
 # Arriba release
-ARRIBA_VER="v1.0.1"
+ARRIBA_VER="v1.1.0"
 
 # Inferred from above
 ARRIBA_DIR="arriba_${ARRIBA_VER}"
@@ -60,15 +60,15 @@ STARI_CPU=8
 STARA_CPU=8
 # Reference and annotation to use for STAR index
 REF="GRCh38"
-ANNO="ENSEMBL93"
+ANNO="GENCODE28"
 REF_ANNO="${REF}+${ANNO}"
 STAR_INDEX_DIR="STAR_index_${REF}_${ANNO}"
 # Compression level for temp BAM file from STAR
 # Set to zero to speed up performance
 STAR_BAM_CMPLVL=0
 # STAR alignment options
-# Cribbed from Arrib 1.0.1 workflow:
-# https://arriba.readthedocs.io/en/v1.0.1/workflow/
+# Cribbed from Arrib 1.1.0 workflow:
+# https://arriba.readthedocs.io/en/v1.1.0/workflow/
 STAR_ARG="--genomeLoad NoSharedMemory --outStd BAM_Unsorted --outSAMtype BAM Unsorted --outSAMunmapped Within --outBAMcompression ${STAR_BAM_CMPLVL} --outFilterMultimapNmax 1 --outFilterMismatchNmax 3 --chimSegmentMin 10 --chimOutType WithinBAM SoftClip --chimJunctionOverhangMin 10 --chimScoreMin 1 --chimScoreDropMax 30 --chimScoreJunctionNonGTAG 0 --chimScoreSeparation 1 --alignSJstitchMismatchNmax 5 -1 5 5 --chimSegmentReadGapMax 3"
 # Ungzip command for fastq.gz files for reading FASTQ into STAR
 # Use pigz here if you have it otherwise use zcat

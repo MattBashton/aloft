@@ -1,4 +1,9 @@
 #!/bin/bash -eu
+#########
+# Aloft #
+#########
+# Matt Bashton 2018-2019
+
 tput bold
 echo "Aloft a script for running Arriba RNA-Seq fusion detection"
 echo "Matt Bashton 2018"
@@ -149,18 +154,13 @@ else
     # format s/OLD/NEW/g;
     # Make array
     declare -A SED_ARRAY
+    # These specifically require renaming for GENCODE28
     # Populate key value pairs
     SED_ARRAY[C15orf55]=NUTM1
-    SED_ARRAY[C2orf44]=WDCP
     SED_ARRAY[CTAGE5]=MIA2
     SED_ARRAY[ERO1L]=ERO1A
-    SED_ARRAY[LHFP]=LHFPL6
-    SED_ARRAY[HN1]=JPT1
     SED_ARRAY[KIAA1598]=SHTN1
-    SED_ARRAY[CASC5]=KNL1
     SED_ARRAY[KIAA0284]=CEP170B
-    SED_ARRAY[KIAA1524]=CIP2A
-    SED_ARRAY[MLLT4]=AFDN
     SED_ARRAY[FAM22A]=NUTM2A
     SED_ARRAY[FAM22B]=NUTM2B
     # Generate string for sed in loop
@@ -257,13 +257,13 @@ parallel --bar --jobs ${GNUP_THREAD} --joblog Arriba_joblog.txt < Arriba_jobs.tx
 tput bold
 echo -ne "\nRunning SAMtools jobs...\n"
 tput sgr0
-parallel --bar --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt 
+parallel --bar --jobs ${GNUP_THREAD_SAMTOOLS} --joblog SAMtools_joblog.txt < SAMtools_jobs.txt
 
 # Run Plotting jobs
 tput bold
 echo -ne "\nRunning Plotting jobs...\n"
 tput sgr0
-parallel --bar --jobs ${GNUP_THREAD} --joblog Plotting_joblog.txt < Plotting_jobs.txt 
+parallel --bar --jobs ${GNUP_THREAD} --joblog Plotting_joblog.txt < Plotting_jobs.txt
 
 tput bold
 echo -ne "\n\nDone!\n\n"
