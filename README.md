@@ -18,8 +18,10 @@ This script was inspired by the [demo script](https://arriba.readthedocs.io/en/v
 * [STAR aligner](https://github.com/alexdobin/STAR)
 * [SAMtools](http://www.htslib.org/)
 * [GNU Parallel](https://www.gnu.org/software/parallel/)
+* [R](https://www.r-project.org/) and [Bioconductor](https://www.bioconductor.org) specifically packages: GenomicRanges, circlize and GenomicAlignments.
 * The COSMIC [Complete Fusion Export](https://cancer.sanger.ac.uk/cosmic/download) file.
 * Some RNA-Seq [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) files to analyse.
+
 
 ### Central config file ###
 `aloftConfig.sh` contains various settings which will be used for execution along with comments, this Bash script is sourced by the main `aloft.sh` so it will inherit variables defined here.  Please review this before launching an analysis run.
