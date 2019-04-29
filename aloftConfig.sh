@@ -47,7 +47,7 @@ MAX_READS="300"
 # left empty by default
 ARRIBA_ARG=""
 # Datasets form Arriba database dir, these need to match STAR assembly below
-BLACKLIST="${ARRIBA_DIR}/database/blacklist_hg38_GRCh38_2018-04-04.tsv.gz"
+BLACKLIST="${ARRIBA_DIR}/database/blacklist_hg38_GRCh38_2018-11-04.tsv.gz"
 CYTOBANDS="${ARRIBA_DIR}/database/cytobands_hg38_GRCh38_2018-02-23.tsv"
 DOMAINS="${ARRIBA_DIR}/database/protein_domains_hg38_GRCh38_2018-03-06.gff3"
 
