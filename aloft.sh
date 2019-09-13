@@ -3,6 +3,7 @@
 # Aloft #
 #########
 # Matt Bashton 2018-2019
+# This script runs arriba using GNU parallel.
 
 tput bold
 echo "Aloft a script for running Arriba RNA-Seq fusion detection"
@@ -121,6 +122,7 @@ while [[ $COUNTER -le $SAMPLES ]];
 do
     echo -ne "  - Working on sample $COUNTER of $SAMPLES, ID: "
     # Get input files for this run
+    # Assumes R1 R2 in file name!
     R1=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R1 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
     R2=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R2 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
     # echo "$R1 $R2"
@@ -143,26 +145,34 @@ then
 else
     echo -ne "\nGenerating COSMIC known fusions list\n"
     echo -ne " * Parsing: ${COSMIC} and reprocessing to CosmicFusionsList.tsv...\n"
-    zcat ${COSMIC} | grep -v 'Sample ID' | cut -f 12 | grep -v -e '^$' | perl -lne '/^(\S+?)\{\S+\d+}\S+_(\S+?)\{/; print "$1\t$2"' | sort -u > TempCosmicFusionsList.tsv
-    COSMIC_FUSIONS=$(wc -l TempCosmicFusionsList.tsv | cut -d ' ' -f 1)
-    echo -ne " * Found ${COSMIC_FUSIONS} known events\n"
-    echo -ne " * Fixing gene name issues in CosmicFusionsList.tsv...\n"
+    # For COSMIC v90
+    zcat ${COSMIC} | grep -v 'Sample ID' |cut -f 12 | grep -v -e '^$' | perl -lne '/ENST\d+.\d+\(\K(\S*?)\):\S+_ENST\d+.\d+\((\S*?)\)/; print "$1\t$2"' | sort -u > CosmicFusionsList.tsv
+    # For COSMIC v89 only --------
+    # cat ${COSMIC} | grep -v 'Sample ID' | cut -f 12 | grep -v -e '^$' | perl -lne '/^(\S+?)\{\S+\d+}\S+_(\S+?)\{/; print "$1\t$2"' | sort -u > TempCosmicFusionsList.tsv
     # Remove one bogus pair, and remove temp file
-    grep -v '2229+2522ALK' TempCosmicFusionsList.tsv > CosmicFusionsList.tsv
-    rm TempCosmicFusionsList.tsv
+    #grep -v '2229+2522ALK' TempCosmicFusionsList.tsv > CosmicFusionsList.tsv
+    #rm TempCosmicFusionsList.tsv
+    # or COSMIC v89 only --------
+    # Below is for COSMIC v90 vs GENCODE28 issues
+    COSMIC_FUSIONS=$(wc -l CosmicFusionsList.tsv | cut -d ' ' -f 1)
+    echo -ne " * Found ${COSMIC_FUSIONS} known events\n"
+    echo -ne " * Fixing gene name issues in CosmicFusionsList.tsv for COSMIC v90 vs GENOCODE28...\n"
     # String for sed
     # format s/OLD/NEW/g;
     # Make array
     declare -A SED_ARRAY
     # These specifically require renaming for GENCODE28
+    # These caused by issues in COSMIC v90 which has newer HGNC Symbols
     # Populate key value pairs
-    SED_ARRAY[C15orf55]=NUTM1
-    SED_ARRAY[CTAGE5]=MIA2
-    SED_ARRAY[ERO1L]=ERO1A
-    SED_ARRAY[KIAA1598]=SHTN1
-    SED_ARRAY[KIAA0284]=CEP170B
-    SED_ARRAY[FAM22A]=NUTM2A
-    SED_ARRAY[FAM22B]=NUTM2B
+    # [ORIG]=NEW
+    # [COSMIC]=GENCODE28
+    SED_ARRAY[LHFPL6]=LHFP
+    SED_ARRAY[JPT1]=HN1
+    SED_ARRAY[AFDN]=MLLT4
+    SED_ARRAY[CIP2A]=KIAA1524
+    SED_ARRAY[KNL1]=CASC5
+    SED_ARRAY[RELCH]=KIAA1468
+    SED_ARRAY[WDCP]=C2orf44
     # Generate string for sed in loop
     SED_STRING=""
     for OLD in "${!SED_ARRAY[@]}"
