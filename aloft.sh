@@ -122,9 +122,15 @@ while [[ $COUNTER -le $SAMPLES ]];
 do
     echo -ne "  - Working on sample $COUNTER of $SAMPLES, ID: "
     # Get input files for this run
-    # Assumes R1 R2 in file name!
-    R1=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R1 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
-    R2=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R2 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
+    # Assumes 1.f or 2.f in filename indicates read 1 or read 2
+    # Allows for multiple pairs per sample rather than just taking cols 2 and 3
+    # Produces STAR compatible output (see STARmanual page 8)
+    R1=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep -P '1(?=\.f)' | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
+    R2=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep -P '2(?=\.f)' | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
+    # Older
+    # Assumes R1 R2 in file name! (not always the case)
+    #R1=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R1 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
+    #R2=$(cut -f2- ${SAMPLE_SHEET} | awk "NR==${COUNTER}" | tr '\t' '\n' | grep R2 | awk -v var="${INPUT_DIR}" '{printf(var"/%s,",$0)}' | sed 's/,\s*$//')
     # echo "$R1 $R2"
     # Set output BAM name, we want to save this to view in IGV later so saving to disk rather than pipe
     SAMPLE_ID=$(awk "NR==${COUNTER}" ${SAMPLE_SHEET} | cut -f 1)
