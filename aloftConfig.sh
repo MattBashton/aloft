@@ -34,7 +34,7 @@ GNUP_THREAD_SAMTOOLS=4
 # Arriba settings
 #----------------
 # Arriba release
-ARRIBA_VER="v1.1.0"
+ARRIBA_VER="v1.2.0"
 
 # Inferred from above
 ARRIBA_DIR="arriba_${ARRIBA_VER}"
@@ -49,7 +49,7 @@ ARRIBA_ARG=""
 # Datasets form Arriba database dir, these need to match STAR assembly below
 BLACKLIST="${ARRIBA_DIR}/database/blacklist_hg38_GRCh38_2018-11-04.tsv.gz"
 CYTOBANDS="${ARRIBA_DIR}/database/cytobands_hg38_GRCh38_2018-02-23.tsv"
-DOMAINS="${ARRIBA_DIR}/database/protein_domains_hg38_GRCh38_2018-03-06.gff3"
+DOMAINS="${ARRIBA_DIR}/database/protein_domains_hg38_GRCh38_2019-07-05.gff3"
 
 
 # STAR settings
@@ -65,10 +65,10 @@ REF_ANNO="${REF}+${ANNO}"
 STAR_INDEX_DIR="STAR_index_${REF}_${ANNO}"
 # Compression level for temp BAM file from STAR
 # Set to zero to speed up performance
-STAR_BAM_CMPLVL=0
+STAR_BAM_CMPLVL=6
 # STAR alignment options
-# Cribbed from Arrib 1.1.0 workflow:
-# https://arriba.readthedocs.io/en/v1.1.0/workflow/
+# Cribbed from Arrib 1.2.0 workflow:
+# https://arriba.readthedocs.io/en/v1.2.0/workflow/
 STAR_ARG="--genomeLoad NoSharedMemory --outStd BAM_Unsorted --outSAMtype BAM Unsorted --outSAMunmapped Within --outBAMcompression ${STAR_BAM_CMPLVL} --outFilterMultimapNmax 1 --outFilterMismatchNmax 3 --chimSegmentMin 10 --chimOutType WithinBAM SoftClip --chimJunctionOverhangMin 10 --chimScoreMin 1 --chimScoreDropMax 30 --chimScoreJunctionNonGTAG 0 --chimScoreSeparation 1 --alignSJstitchMismatchNmax 5 -1 5 5 --chimSegmentReadGapMax 3"
 # Ungzip command for fastq.gz files for reading FASTQ into STAR
 # Use pigz here if you have it otherwise use zcat
